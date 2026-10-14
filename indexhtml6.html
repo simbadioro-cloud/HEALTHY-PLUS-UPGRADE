@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Healthy+ | Workout & Diet Plans</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Archivo+Black&display=swap');
+:root{--bg:#000;--red:#ff1c1c;--blue:#1e7bff;--white:#f5f5f5;--black-accent:#1a1a1a;--muted:#9a9a9a;--card:#0c0c0c;--line:rgba(255,255,255,.08);}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Inter',Arial,sans-serif;min-height:100vh;overflow-x:hidden;position:relative;}
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 15% 20%,rgba(255,28,28,.16),transparent 35%),radial-gradient(circle at 85% 15%,rgba(30,123,255,.16),transparent 35%),radial-gradient(circle at 50% 90%,rgba(255,28,28,.10),transparent 40%);animation:drift 12s ease-in-out infinite alternate;}
+@keyframes drift{0%{transform:scale(1) translate(0,0);}100%{transform:scale(1.15) translate(2%,-2%);}}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:42px 42px;-webkit-mask:radial-gradient(circle at 50% 0%,#000 0%,transparent 70%);mask:radial-gradient(circle at 50% 0%,#000 0%,transparent 70%);}
+section,.footer{position:relative;z-index:1;}
+.hero{position:relative;text-align:center;padding:70px 20px 40px;}
+.logo-wrap{position:relative;width:280px;height:280px;margin:0 auto 10px;animation:pop-in .8s cubic-bezier(.2,1.4,.4,1) both;}
+@keyframes pop-in{0%{transform:scale(.4) rotate(-25deg);opacity:0;}100%{transform:scale(1) rotate(0);opacity:1;}}
+.logo-wrap svg{position:absolute;inset:0;width:100%;height:100%;animation:spin-slow 22s linear infinite;}
+@keyframes spin-slow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.logo-wrap svg path{filter:drop-shadow(0 0 6px currentColor);}
+.wordmark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Archivo Black',sans-serif;font-size:3.1rem;letter-spacing:-1px;white-space:nowrap;font-style:italic;}
+.wordmark .g{color:var(--red);animation:pulse-red 2.4s ease-in-out infinite;}
+.wordmark .ym{color:var(--black-accent);-webkit-text-stroke:1.5px #666;}
+.wordmark .plus{color:var(--blue);animation:pulse-blue 2.4s ease-in-out infinite;animation-delay:1.2s;}
+@keyframes pulse-red{0%,100%{text-shadow:0 0 10px rgba(255,28,28,.5);}50%{text-shadow:0 0 26px rgba(255,28,28,.95);}}
+@keyframes pulse-blue{0%,100%{text-shadow:0 0 10px rgba(30,123,255,.5);}50%{text-shadow:0 0 26px rgba(30,123,255,.95);}}
+.tagline{color:var(--muted);font-size:1.05rem;line-height:1.9;max-width:640px;margin:18px auto 0;animation:fade-up .8s ease .2s both;}
+.eyebrow{display:inline-block;font-family:'Archivo Black',sans-serif;font-style:italic;font-size:.75rem;letter-spacing:2px;color:var(--blue);border:1px solid var(--blue);padding:5px 14px;clip-path:polygon(10px 0,100% 0,100% 100%,0 100%,0 10px);margin-bottom:16px;animation:fade-up .6s ease both,border-cycle 3.5s linear infinite 1s;}
+@keyframes border-cycle{0%,100%{border-color:var(--blue);color:var(--blue);}50%{border-color:var(--red);color:var(--red);}}
+@keyframes fade-up{0%{opacity:0;transform:translateY(14px);}100%{opacity:1;transform:translateY(0);}}
+.calc{max-width:640px;margin:38px auto 0;background:var(--card);border:1px solid var(--line);padding:28px;position:relative;clip-path:polygon(24px 0,100% 0,100% calc(100% - 24px),calc(100% - 24px) 100%,0 100%,0 24px);animation:fade-up .8s ease .3s both;text-align:left;}
+.calc::before{content:"";position:absolute;top:0;right:0;left:0;height:5px;background:linear-gradient(90deg,var(--red),var(--black-accent) 50%,var(--blue));background-size:200% 100%;animation:sweep 3s linear infinite;}
+@keyframes sweep{0%{background-position:0% 0;}100%{background-position:200% 0;}}
+.calc h3{font-family:'Archivo Black',sans-serif;font-style:italic;font-size:1.3rem;margin-bottom:6px;}
+.calc h3 span{color:var(--blue);}
+.calc p.sub{color:var(--muted);font-size:.9rem;margin-bottom:20px;line-height:1.7;}
+.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+.field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;}
+.field input{width:100%;background:#111;border:1px solid var(--line);color:var(--white);font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:700;padding:12px 14px;outline:none;transition:.25s ease;clip-path:polygon(8px 0,100% 0,100% 100%,0 100%,0 8px);}
+.field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,123,255,.18);}
+.sex-toggle{display:flex;gap:10px;}
+.sex-btn{flex:1;background:#111;border:1px solid var(--line);color:var(--muted);font-family:'Inter',sans-serif;font-weight:700;font-size:.95rem;padding:11px;cursor:pointer;clip-path:polygon(8px 0,100% 0,100% 100%,0 100%,0 8px);transition:.2s ease;}
+.sex-btn.active{color:#fff;border-color:transparent;background:linear-gradient(90deg,var(--red),var(--blue));}
+.calc-btn{width:100%;border:none;cursor:pointer;color:#fff;font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:900;padding:15px;background:linear-gradient(90deg,var(--red),var(--blue));background-size:200% 100%;clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);letter-spacing:.5px;transition:.25s ease;}
+.calc-btn:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.5);}
+button:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
+.profile-note{margin-top:14px;font-size:.85rem;color:var(--muted);text-align:center;}
+.profile-note.confirmed{color:var(--blue);font-weight:700;}
+.profile-note.error{color:var(--red);font-weight:700;}
+.macro-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+.macro-box{flex:1 1 calc(20% - 8px);min-width:100px;background:#0a0a0a;border:1px solid var(--line);padding:12px 8px;text-align:center;clip-path:polygon(6px 0,100% 0,100% 100%,0 100%,0 6px);}
+.macro-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.macro-value{font-family:'Archivo Black',sans-serif;font-style:italic;font-size:1.05rem;color:var(--white);}
+.macro-value small{display:block;font-family:'Inter',sans-serif;font-style:normal;font-weight:500;font-size:.7rem;color:var(--muted);margin-top:3px;}
+.rule-note{margin-top:12px;font-size:.8rem;color:var(--blue);line-height:1.7;text-align:center;}
+.personal-plan{display:none;max-width:1000px;margin:30px auto 0;background:var(--card);border:1px solid var(--line);padding:32px;position:relative;clip-path:polygon(28px 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%,0 28px);text-align:left;}
+.personal-plan.show{display:block;animation:card-in .6s cubic-bezier(.2,1,.3,1) both;}
+@keyframes card-in{0%{opacity:0;transform:translateY(18px) scale(.98);}100%{opacity:1;transform:translateY(0) scale(1);}}
+.personal-plan::before{content:"";position:absolute;top:0;right:0;left:0;height:5px;background:linear-gradient(90deg,var(--red),var(--blue),var(--red));background-size:200% 100%;animation:sweep 4s linear infinite;}
+.pp-header{margin-bottom:24px;}
+.pp-eyebrow{display:block;font-size:.72rem;letter-spacing:2px;color:var(--blue);font-weight:700;margin-bottom:8px;}
+.pp-header h2{font-family:'Archivo Black',sans-serif;font-style:italic;font-size:1.9rem;margin-bottom:8px;}
+.pp-header p{color:var(--muted);font-size:.95rem;line-height:1.8;}
+.pp-warning{display:none;margin-top:18px;padding:14px 16px;background:#140a0a;border:1px solid rgba(255,28,28,.35);border-left:4px solid var(--red);font-size:.9rem;line-height:1.7;color:#f0d0d0;}
+.pp-warning.show{display:block;}
+.pp-warning p+p{margin-top:8px;}
+.pp-grid{display:flex;flex-wrap:wrap;gap:30px;margin-top:8px;}
+.pp-col{flex:1 1 300px;}
+.pp-disclaimer{margin-top:26px;padding-top:14px;border-top:1px dashed var(--line);font-size:.78rem;color:var(--muted);line-height:1.7;}
+@media (max-width:700px){.macro-box{flex:1 1 calc(50% - 6px);}}
+.buttons{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:36px 0 10px;}
+.btn{position:relative;isolation:isolate;cursor:pointer;color:#fff;font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:900;padding:16px 34px;min-width:150px;background:#111;border:2px solid var(--line);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);transition:.25s ease;letter-spacing:.5px;}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--red),var(--blue));opacity:0;clip-path:inherit;transition:.25s ease;z-index:-1;}
+.btn.active,.btn:hover{border-color:transparent;transform:translateY(-2px);}
+.btn.active::after,.btn:hover::after{opacity:1;}
+.section-title{font-family:'Archivo Black',sans-serif;font-style:italic;font-size:1rem;color:var(--blue);margin:18px 0 10px;letter-spacing:.5px;}
+.source-note{font-size:.72rem;color:var(--muted);font-style:italic;margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);line-height:1.6;}
+ul{list-style:none;}
+li{position:relative;padding-left:20px;margin-bottom:10px;line-height:1.8;color:#e6e6e6;font-size:.95rem;}
+li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;background:var(--red);clip-path:polygon(0 0,100% 0,100% 60%,60% 100%,0 100%);}
+.footer{text-align:center;color:var(--muted);padding:20px;font-size:.85rem;border-top:1px solid var(--line);line-height:1.8;}
+.footer small{display:block;max-width:720px;margin:6px auto 0;font-size:.75rem;}
+@media (max-width:600px){.logo-wrap{width:220px;height:220px;}.wordmark{font-size:2.5rem;}.btn{width:100%;}.calc-grid{grid-template-columns:1fr;}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none !important;transition:none !important;}html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="bg-grid"></div>
+
+<section class="hero">
+<div class="eyebrow">HEALTHY+ SYSTEM</div>
+<div class="logo-wrap">
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M 100 10 A 90 90 0 0 0 15 70" stroke="#ff1c1c" stroke-width="9" stroke-linecap="butt"/>
+<path d="M 108 10.5 A 90 90 0 0 1 185 70" stroke="#1e7bff" stroke-width="9" stroke-linecap="butt"/>
+<path d="M 188 78 A 90 90 0 0 1 165 148" stroke="#1e7bff" stroke-width="9" stroke-linecap="butt"/>
+<path d="M 160 155 A 90 90 0 0 1 40 155" stroke="#1a1a1a" stroke-width="9" stroke-linecap="butt"/>
+<path d="M 160 155 A 90 90 0 0 1 40 155" stroke="#555" stroke-width="1" stroke-linecap="butt" fill="none"/>
+<path d="M 35 148 A 90 90 0 0 1 12 78" stroke="#1a1a1a" stroke-width="9" stroke-linecap="butt"/>
+<path d="M 35 148 A 90 90 0 0 1 12 78" stroke="#555" stroke-width="1" stroke-linecap="butt" fill="none"/>
+</svg>
+<div class="wordmark"><span class="g">H</span><span class="ym">ealthy</span><span class="plus">+</span></div>
+</div>
+<p class="tagline">Choose the category that fits you, or enter your details below to get a plan matched to you.</p>
+
+<div class="calc">
+<h3>Find Your <span>Plan</span></h3>
+<p class="sub">Enter your age, height, weight, and sex, then choose Bulk, Cut, Seniors, or Keto below. Calories are estimated with the Mifflin-St Jeor formula. Protein, fat, and carbs follow the Healthy+ nutrition rules (balanced diet, Mesomorph / Ectomorph weight gain, and Ketogenic).</p>
+
+<div class="calc-grid">
+<div class="field"><label for="age">Age (years)</label><input type="number" id="age" min="10" max="100" placeholder="e.g. 25" /></div>
+<div class="field"><label for="height">Height (cm)</label><input type="number" id="height" min="100" max="230" placeholder="e.g. 175" /></div>
+<div class="field"><label for="weight">Weight (kg)</label><input type="number" id="weight" min="25" max="250" placeholder="e.g. 70" /></div>
+</div>
+
+<div class="field" style="margin-bottom:18px;">
+<label>Biological Sex <span style="opacity:.6;">(for calorie accuracy)</span></label>
+<div class="sex-toggle">
+<button type="button" class="sex-btn active" id="sex-male" onclick="setSex('male')">Male</button>
+<button type="button" class="sex-btn" id="sex-female" onclick="setSex('female')">Female</button>
+</div>
+</div>
+
+<div class="field" style="margin-bottom:18px;">
+<label>Body Type <span style="opacity:.6;">(used for Bulk / weight gain)</span></label>
+<div class="sex-toggle">
+<button type="button" class="sex-btn active" id="bt-meso" onclick="setBody('meso')">Mesomorph</button>
+<button type="button" class="sex-btn" id="bt-ecto" onclick="setBody('ecto')">Ectomorph</button>
+<button type="button" class="sex-btn" id="bt-endo" onclick="setBody('endo')">Endomorph</button>
+</div>
+</div>
+
+<button class="calc-btn" onclick="saveProfile()">Save My Details</button>
+<div class="profile-note" id="profileNote">Enter your details, then tap Bulk, Cut, Seniors, or Keto below to see your personalized plan.</div>
+</div>
+
+<div class="personal-plan" id="personalPlan">
+<div class="pp-header">
+<span class="pp-eyebrow">YOUR PERSONALIZED PLAN</span>
+<h2 id="ppTitle">-</h2>
+<p id="ppSubtitle">-</p>
+<div class="pp-warning" id="ppWarning"></div>
+</div>
+
+<div class="macro-grid" id="macroGrid">
+<div class="macro-box"><div class="macro-label">Your BMI</div><div class="macro-value" id="bmiValue">-</div></div>
+<div class="macro-box"><div class="macro-label">Daily Calories</div><div class="macro-value" id="calValue">-</div></div>
+<div class="macro-box"><div class="macro-label">Protein</div><div class="macro-value" id="proteinValue">-</div></div>
+<div class="macro-box"><div class="macro-label">Carbs</div><div class="macro-value" id="carbValue">-</div></div>
+<div class="macro-box"><div class="macro-label">Fat</div><div class="macro-value" id="fatValue">-</div></div>
+</div>
+<div class="rule-note" id="dejNote"></div>
+<div class="rule-note" id="ruleNote"></div>
+
+<div class="pp-grid">
+<div class="pp-col">
+<div class="section-title">Diet Plan</div>
+<ul id="ppDiet"></ul>
+<div class="source-note" id="ppDietSource">-</div>
+</div>
+<div class="pp-col">
+<div class="section-title">Workout Plan</div>
+<ul id="ppWorkout"></ul>
+<div class="source-note" id="ppWorkoutSource">-</div>
+</div>
+</div>
+
+<div class="pp-disclaimer">
+These numbers are estimates for healthy people, not medical advice. See a doctor or registered dietitian before changing your diet or training, especially if you have a health condition, take medication, are pregnant, are under 18, or are 65 or older.
+</div>
+</div>
+
+<div class="buttons">
+<button class="btn" id="btn-bulk" onclick="chooseCategory('bulk', this)">Bulk</button>
+<button class="btn" id="btn-cut" onclick="chooseCategory('cut', this)">Cut</button>
+<button class="btn" id="btn-elderly" onclick="chooseCategory('elderly', this)">Seniors</button>
+<button class="btn" id="btn-keto" onclick="chooseCategory('keto', this)">Keto</button>
+</div>
+</section>
+
+<div class="footer">
+Healthy+ — Your Fitness & Nutrition System
+<small>Healthy+ gives general information only. It does not replace advice from a doctor or dietitian.</small>
+</div>
+
+<script>
+const btns = Array.prototype.slice.call(document.querySelectorAll(".btn"));
+let userProfile = null;
+let currentCategory = null;
+let selectedSex = "male";
+let bodyType = "meso";
+
+function setSex(sex){
+selectedSex = sex;
+document.getElementById("sex-male").classList.toggle("active", sex === "male");
+document.getElementById("sex-female").classList.toggle("active", sex === "female");
+}
+
+function setBody(t){
+bodyType = t;
+document.getElementById("bt-meso").classList.toggle("active", t === "meso");
+document.getElementById("bt-ecto").classList.toggle("active", t === "ecto");
+document.getElementById("bt-endo").classList.toggle("active", t === "endo");
+if(userProfile && currentCategory){ renderPlan(currentCategory); }
+}
+
+function saveProfile(){
+const age = parseFloat(document.getElementById("age").value);
+const heightCm = parseFloat(document.getElementById("height").value);
+const weightKg = parseFloat(document.getElementById("weight").value);
+const note = document.getElementById("profileNote");
+const valid = Number.isFinite(age) && Number.isFinite(heightCm) && Number.isFinite(weightKg) &&
+age >= 10 && age <= 100 && heightCm >= 100 && heightCm <= 230 && weightKg >= 25 && weightKg <= 250;
+if(!valid){
+note.textContent = "Check your details: age 10-100 years, height 100-230 cm, weight 25-250 kg.";
+note.classList.remove("confirmed");
+note.classList.add("error");
+return;
+}
+userProfile = { age, heightCm, weightKg, sex: selectedSex };
+note.textContent = "Details saved. Now tap Bulk, Cut, Seniors, or Keto to see your personalized plan.";
+note.classList.remove("error");
+note.classList.add("confirmed");
+if(currentCategory){ renderPlan(currentCategory); }
+}
+
+// ===== NUTRITION RULES (Healthy+ notes) =====
+// Balanced diet (% of total daily energy intake, DET = 100%):
+// Fat 30-35% | Carbs 46-55% | Protein 15-20% -> used: P 18% / F 32% / C 50%
+// Weight gain, Mesomorph: Protein 1.6 g/kg | Fat 30% of calories | Carbs = rest of calories
+// Weight gain, Ectomorph: Protein 1.6 g/kg | Fat up to 35% of calories | Carbs = rest of calories
+// (for athletes training more than 3 times per week)
+// Ketogenic diet: Fat 90% | Protein 7% | Carbs 3%
+//
+// Workout guidance below follows WHO (2020) activity guidelines and the ACSM (2009) resistance training position stand.
+
+const PLAN_LIBRARY = {
+bulk: {
+teen: {
+title: "Bulk Plan — Teen Growth & Strength",
+diet: [
+"Breakfast: whole grain cereal or oats + milk + banana + eggs.",
+"Lunch: chicken, fish, or beef + rice, couscous, or pasta + vegetables.",
+"Snack: yogurt or lben + nuts + dates or fruit.",
+"Dinner: fish or lean meat + salad + whole grain bread.",
+"3 balanced meals + 2 snacks daily to support steady growth and training.",
+"Prioritize whole foods; limit sugary drinks and fast food. No supplements unless a doctor advises them."
+],
+dietSource: "Macros follow the Healthy+ weight-gain rule: protein 1.6 g/kg, fat 30% (Mesomorph) or up to 35% (Ectomorph) of calories, and carbs from the remaining calories. Calorie estimates are approximate under 18.",
+workout: [
+"Train 3 or more times per week (the weight-gain rule is meant for people who train regularly).",
+"Muscle- and bone-strengthening activity at least 3 days/week.",
+"Bodyweight training: squats, push-ups, planks. Focus on technique over load.",
+"Light, supervised resistance training is fine; avoid maximal lifts.",
+"Aim for an average of 60 minutes of moderate-to-vigorous activity daily.",
+"Sleep 8-10 hours nightly to support growth and recovery."
+],
+workoutSource: "WHO Guidelines on Physical Activity and Sedentary Behaviour (2020), ages 5-17: average 60 min/day of moderate-to-vigorous activity; muscle- and bone-strengthening on at least 3 days/week."
+},
+adult: {
+title: "Bulk Plan — Muscle Building",
+diet: [
+"Breakfast: oats + 3-4 eggs + banana + milk.",
+"Meal 2: rice or couscous + chicken breast + olive oil + vegetables.",
+"Meal 3: tuna or sardine sandwich + avocado or olives.",
+"Pre-workout: banana + peanut butter.",
+"Post-workout: a protein source (eggs, chicken, milk, or whey) + rice or potatoes.",
+"Dinner: lean red meat or lentils + salad + whole grain bread.",
+"Extra snack: nuts + yogurt + dates.",
+"Spread your protein over 3-4 meals per day rather than one large dose."
+],
+dietSource: "Macros follow the Healthy+ weight-gain rule: protein 1.6 g/kg, fat 30% of calories for a Mesomorph or up to 35% for an Ectomorph, and carbs from the remaining calories. The calorie surplus is a modest estimate, not a fixed rule.",
+workout: [
+"Train more than 3 times per week (the weight-gain rule is meant for athletes).",
+"Squat: 3-4 sets × 8-12 reps.",
+"Bench Press: 3-4 sets × 8-12 reps.",
+"Deadlift: 3 sets × 6-8 reps.",
+"Barbell Row: 3-4 sets × 8-12 reps.",
+"Shoulder Press: 3 sets × 8-12 reps.",
+"Biceps Curl: 2-3 sets × 10-12 reps.",
+"Triceps Pushdown: 2-3 sets × 10-12 reps.",
+"Rest at least 48 hours before training the same muscle again. Learn technique first and use a spotter on heavy lifts.",
+"Keep 150 minutes/week of moderate cardio for heart health."
+],
+workoutSource: "Reps, sets, and rest follow the ACSM Position Stand on Progression Models in Resistance Training for Healthy Adults (2009). Cardio follows WHO (2020). The exercise list is an example program."
+},
+senior: {
+title: "Bulk Plan — Senior Healthy Weight Gain",
+diet: [
+"Breakfast: yogurt + soft oats + banana + a boiled egg.",
+"Meal 2: whole grain toast + cheese + nuts.",
+"Lunch: chicken or fish + rice or couscous + cooked vegetables + olive oil.",
+"Snack: dates + yogurt or lben + soft fruit.",
+"Dinner: chorba or lentil soup + a protein source + soft bread.",
+"Favor calorie-dense, easy-to-digest whole foods. See a doctor if you are underweight or losing weight without trying."
+],
+dietSource: "Macros follow the Healthy+ weight-gain rule: protein 1.6 g/kg, fat 30% (Mesomorph) or up to 35% (Ectomorph) of calories, carbs from the rest. Confirm with a doctor first if you have kidney disease.",
+workout: [
+"Functional balance and strength training on 3+ days/week.",
+"Chair squats: 2 sets × 10 reps to build leg strength.",
+"Light resistance band exercises 2-3x/week for the major muscle groups.",
+"Balance exercises: standing on one leg next to a wall or sturdy chair.",
+"150-300 minutes/week of moderate aerobic activity, as your doctor allows.",
+"Gentle flexibility and breathing exercises daily."
+],
+workoutSource: "WHO Guidelines on Physical Activity and Sedentary Behaviour (2020), adults 65+: 150-300 min/week of moderate aerobic activity, muscle-strengthening on 2+ days/week, plus balance and strength training on 3+ days/week."
+}
+},
+cut: {
+teen: {
+title: "Cut Plan — Teen Healthy Weight",
+diet: [
+"Breakfast: eggs or yogurt + fruit + a small whole grain portion.",
+"Lunch: grilled protein + vegetables + moderate whole grains.",
+"Snack: fruit or plain yogurt.",
+"Dinner: light protein + salad; avoid large, late meals.",
+"Cut sugary drinks, fast food, and processed snacks. Never crash-diet at this age.",
+"Any weight goal under 18 should involve a parent or guardian and a doctor."
+],
+dietSource: "Calories are set at maintenance, with no deficit, because growing teens should not diet without medical supervision. Macros follow the balanced diet rule: protein 15-20%, fat 30-35%, carbs 46-55% of total energy intake.",
+workout: [
+"Aim for an average of 60 minutes of moderate-to-vigorous activity daily.",
+"Fun cardio: swimming, cycling, brisk walking, sports.",
+"Bodyweight strength training 2-3x/week.",
+"Muscle- and bone-strengthening activity at least 3 days/week.",
+"Sleep 8-10 hours nightly."
+],
+workoutSource: "WHO Guidelines on Physical Activity and Sedentary Behaviour (2020), ages 5-17."
+},
+adult: {
+title: "Cut Plan — Fat Loss",
+diet: [
+"Breakfast: 3 eggs + a small portion of oats + black coffee or tea.",
+"Meal 2: grilled chicken breast + green salad.",
+"Meal 3: plain yogurt + almonds.",
+"Lunch: grilled fish + broccoli or green beans + a small portion of brown rice.",
+"Pre-workout: one apple or banana.",
+"Post-workout: a protein source + boiled potatoes.",
+"Dinner: tuna or lentils + steamed vegetables + cucumber.",
+"Include a protein source in every meal."
+],
+dietSource: "Macros follow the balanced diet rule: protein 15-20%, fat 30-35%, carbs 46-55% of total energy intake (total = 100%). The deficit is a moderate estimate and calories never drop below 1,500 (men) or 1,200 (women).",
+workout: [
+"Full-body resistance training 2-4 days/week, moderate load, 8-12 reps.",
+"Push-ups: 3-4 sets × 12-15 reps.",
+"Lat Pulldown: 3 sets × 10-12 reps.",
+"Lunges: 3 sets × 10-12 reps per leg.",
+"Plank: 3 sets × 30-45 seconds.",
+"150-300 minutes/week of moderate aerobic activity (or 75-150 min vigorous), spread across the week."
+],
+workoutSource: "Aerobic volume follows WHO (2020) for adults 18-64. Reps and sets follow the ACSM Position Stand on Progression Models in Resistance Training (2009)."
+},
+senior: {
+title: "Cut Plan — Senior Safe Weight Management",
+diet: [
+"Breakfast: egg whites or yogurt + soft oats + berries.",
+"Meal 2: whole grain toast + low-fat cheese.",
+"Lunch: grilled chicken or fish + steamed vegetables + a small rice portion.",
+"Snack: soft fruit or plain yogurt.",
+"Dinner: light vegetable soup + lean protein.",
+"Avoid crash dieting. Speak with a doctor before starting any calorie deficit at this age."
+],
+dietSource: "Macros follow the balanced diet rule: protein 15-20%, fat 30-35%, carbs 46-55% of total energy intake, with a small deficit only. Weight loss after 65 is best supervised by a doctor.",
+workout: [
+"Muscle-strengthening activity 2+ days/week; functional balance and strength training 3+ days/week.",
+"Light walking: 25-35 minutes, most days.",
+"Chair-based strength exercises: 2 sets × 10-12 reps.",
+"Water aerobics or gentle swimming if accessible.",
+"Balance and flexibility work daily.",
+"Breathing and relaxation exercises."
+],
+workoutSource: "WHO Guidelines on Physical Activity and Sedentary Behaviour (2020), adults 65+."
+}
+},
+elderly: {
+teen: {
+title: "Low-Impact Plan — Adapted for a Younger Profile",
+diet: [
+"Breakfast: yogurt + soft oats + banana or grated apple.",
+"Lunch: chicken or fish + steamed vegetables + light rice.",
+"Snack: dates + yogurt or soft fruit.",
+"Dinner: vegetable soup + boiled egg or tuna.",
+"This low-impact style is not typical for a healthy teen. The Bulk or Cut plan usually fits better; see a doctor if joint or mobility problems are the reason you chose this one."
+],
+dietSource: "Calories are set at maintenance. Macros follow the balanced diet rule: protein 15-20%, fat 30-35%, carbs 46-55% of total energy intake. Offered only as an accommodation, not as a standard plan for teens.",
+workout: [
+"Light walking or swimming: 20-30 minutes.",
+"Gentle flexibility exercises for neck, shoulders, and back.",
+"Bodyweight balance exercises with supervision.",
+"Breathing and relaxation exercises.",
+"Still aim for 60 minutes of activity a day where a doctor says it is safe."
+],
+workoutSource: "Adapted conservatively from WHO (2020) guidance for ages 5-17. A doctor or physical therapist should confirm this plan suits you."
+},
+adult: {
+title: "Low-Impact Plan — Adapted for an Adult Profile",
+diet: [
+"Breakfast: yogurt + soft oats + banana or grated apple.",
+"Meal 2: whole grain toast + low-fat cheese.",
+"Lunch: chicken or fish + steamed vegetables + light rice.",
+"Snack: dates + yogurt or soft fruit.",
+"Dinner: vegetable soup + boiled egg or tuna.",
+"Reduce sugar and heavy, late meals."
+],
+dietSource: "Calories are set at maintenance. Macros follow the balanced diet rule: protein 15-20%, fat 30-35%, carbs 46-55% of total energy intake (total = 100%).",
+workout: [
+"150-300 minutes/week of moderate aerobic activity.",
+"Brisk walking: 25-35 minutes per session.",
+"Bodyweight balance and mobility circuit 2-3x/week.",
+"Light resistance band training, 2+ days/week.",
+"Flexibility exercises: neck, shoulders, back, hips.",
+"Breathing and relaxation exercises."
+],
+workoutSource: "WHO Guidelines on Physical Activity and Sedentary Behaviour (2020), adults 18-64, with low-impact exercises used in place of standard resistance training."
+},
+senior: {
+title: "Seniors Plan — Health, Balance & Mobility",
+diet: [
+"Breakfast: yogurt + soft oats + banana or grated apple.",
+"Meal 2: whole grain toast + low-fat cheese.",
+"Lunch: chicken or fish + steamed vegetables + light rice or couscous.",
+"Snack: dates + yogurt or soft fruit.",
+"Dinner: chorba or vegetable soup + boiled egg or tuna.",
+"Reduce sugar and heavy, late meals."
+],
+dietSource: "Calories are set at maintenance. Macros follow the balanced diet rule: protein 15-20%, fat 30-35%, carbs 46-55% of total energy intake (total = 100%).",
+workout: [
+"150-300 minutes/week of moderate aerobic activity (or 75-150 min vigorous), as your doctor allows.",
+"Muscle-strengthening activities on 2+ days/week, all major muscle groups.",
+"Functional balance and strength training on 3+ days/week to reduce fall risk.",
+"Chair squats: 2 sets × 10 reps.",
+"Light arm raises: 2 sets × 12 reps.",
+"Breathing and relaxation exercises."
+],
+workoutSource: "WHO Guidelines on Physical Activity and Sedentary Behaviour (2020), adults 65+."
+}
+},
+keto: {
+teen: {
+title: "Keto Plan — Not Recommended Under 18",
+diet: [
+"A ketogenic diet is not appropriate for growing teens without a doctor's supervision.",
+"Your macros below use the balanced diet rule instead: protein 15-20%, fat 30-35%, carbs 46-55%.",
+"Breakfast: eggs or yogurt + fruit + a small whole grain portion.",
+"Lunch: grilled protein + vegetables + moderate whole grains.",
+"Dinner: light protein + salad.",
+"Talk to a doctor and a parent or guardian before any diet change."
+],
+dietSource: "Keto (fat 90%, protein 7%, carbs 3%) is not applied under 18. Calories are set at maintenance and macros follow the balanced diet rule.",
+workout: [
+"Aim for an average of 60 minutes of moderate-to-vigorous activity daily.",
+"Muscle- and bone-strengthening activity at least 3 days/week.",
+"Sports or team activities 2-3x/week.",
+"Sleep 8-10 hours nightly."
+],
+workoutSource: "WHO Guidelines on Physical Activity and Sedentary Behaviour (2020), ages 5-17."
+},
+adult: {
+title: "Keto Plan — Ketogenic Diet",
+diet: [
+"Breakfast: 3 eggs cooked in butter or olive oil + avocado.",
+"Meal 2: salmon or sardines + leafy greens + olive oil.",
+"Lunch: chicken thighs with skin + broccoli or zucchini + olive oil.",
+"Snack: olives + a small handful of nuts + cheese.",
+"Dinner: beef or lamb + green salad + olive oil dressing.",
+"Avoid bread, rice, pasta, sugar, potatoes, and most fruit (carbs must stay at about 3%).",
+"Drink plenty of water and get enough salt, magnesium, and potassium from food.",
+"Have blood work checked by a doctor before and during a ketogenic diet."
+],
+dietSource: "Macros follow the Healthy+ ketogenic rule: fat 90%, protein 7%, carbs 3% of total energy intake. This is a very high-fat diet and should be supervised by a doctor or dietitian.",
+workout: [
+"Resistance training 3 times per week: squats, push-ups, rows (3 sets × 8-12 reps).",
+"Easy to moderate cardio: brisk walking or cycling, 150 minutes/week.",
+"Expect lower energy in the first 1-2 weeks; keep sessions moderate and stop if you feel dizzy.",
+"Stretching and mobility work 10 minutes daily."
+],
+workoutSource: "Aerobic volume follows WHO (2020) for adults 18-64; sets and reps follow the ACSM (2009) position stand."
+},
+senior: {
+title: "Keto Plan — Senior (Medical Supervision Needed)",
+diet: [
+"Breakfast: 2 eggs cooked in olive oil + avocado.",
+"Lunch: baked fish + cooked zucchini or spinach + olive oil.",
+"Snack: cheese + olives.",
+"Dinner: chicken thighs + steamed green vegetables + olive oil.",
+"Avoid bread, rice, pasta, sugar, and fruit juices.",
+"Drink enough water. Do not start keto without your doctor, especially with diabetes, heart, kidney, or blood pressure medication."
+],
+dietSource: "Macros follow the Healthy+ ketogenic rule: fat 90%, protein 7%, carbs 3% of total energy intake. At 65+ this must be supervised by a doctor.",
+workout: [
+"Gentle walking 25-35 minutes, most days.",
+"Chair squats: 2 sets × 10 reps.",
+"Light resistance band exercises 2-3x/week.",
+"Balance exercises next to a wall or sturdy chair.",
+"Stop and rest if you feel dizzy or weak."
+],
+workoutSource: "WHO Guidelines on Physical Activity and Sedentary Behaviour (2020), adults 65+."
+}
+}
+};
+
+const CATEGORY_LABEL = { bulk: "Bulk", cut: "Cut", elderly: "Seniors", keto: "Keto" };
+
+function chooseCategory(category, btn){
+if(!userProfile){
+alert("Please enter your age, height, and weight above, then tap \"Save My Details\" first.");
+return;
+}
+btns.forEach(b => b.classList.remove("active"));
+btn.classList.add("active");
+currentCategory = category;
+renderPlan(category);
+const pp = document.getElementById("personalPlan");
+try { if (typeof pp.scrollIntoView === "function") pp.scrollIntoView({behavior:"smooth", block:"start"}); } catch(e) {}
+}
+
+function renderPlan(category){
+const { age, heightCm, weightKg, sex } = userProfile;
+const bmi = weightKg / Math.pow(heightCm / 100, 2);
+
+let ageBracket;
+if(age < 18) ageBracket = "teen";
+else if(age < 65) ageBracket = "adult";
+else ageBracket = "senior";
+
+// Mifflin-St Jeor
+const bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + (sex === "male" ? 5 : -161);
+const tdee = bmr * (ageBracket === "senior" ? 1.3 : 1.375);
+
+const notes = [];
+let allowDeficit = true;
+
+if(ageBracket === "teen"){
+notes.push("For under-18s, BMI is judged by percentile for age and sex, not by adult cut-offs, and calorie estimates are approximate. Ask a doctor before setting any weight goal.");
+}
+if(ageBracket === "adult"){
+if(category === "cut" && bmi < 18.5){
+allowDeficit = false;
+notes.push("Your BMI is under 18.5, which is underweight. A calorie deficit is not appropriate, so your calories are set at maintenance. Consider the Bulk plan and see a doctor.");
+}
+if(category === "bulk" && bmi >= 30){
+notes.push("Your BMI is 30 or above. A calorie surplus may not suit you. Talk to a doctor or dietitian before bulking, or consider the Cut plan.");
+}
+}
+if(ageBracket === "senior"){
+if(category === "cut" && bmi < 22){
+allowDeficit = false;
+notes.push("A BMI under 22 is on the low side for older adults and raises the risk of frailty. No calorie deficit is applied; your calories are set at maintenance.");
+} else if(category === "cut"){
+notes.push("Weight loss after 65 is best supervised by a doctor, because it can also reduce muscle and bone.");
+}
+}
+
+// ----- Calories -----
+let targetCalories;
+if(category === "bulk"){
+targetCalories = tdee + (ageBracket === "adult" ? 350 : 250);
+} else if(category === "cut"){
+if(ageBracket === "teen" || !allowDeficit){
+targetCalories = tdee;
+} else {
+const deficit = ageBracket === "senior" ? 300 : 450;
+const floor = sex === "male" ? 1500 : 1200;
+targetCalories = Math.max(tdee - deficit, Math.min(floor, tdee));
+}
+} else {
+targetCalories = tdee;
+}
+
+// ----- Macros (Healthy+ rules) -----
+let proteinG, fatG, carbG, ruleText;
+const isKeto = category === "keto" && ageBracket !== "teen";
+
+if(category === "bulk" && bodyType === "endo"){
+// Endomorph: no specific rule in the notes yet -> balanced diet rule (P 18% / F 32% / C 50%)
+proteinG = Math.round(targetCalories * 0.18 / 4);
+fatG = Math.round(targetCalories * 0.32 / 9);
+carbG = Math.round(targetCalories * 0.50 / 4);
+ruleText = "Endomorph: the balanced diet rule is used (protein 15-20%, fat 30-35%, carbs 46-55%; your plan uses 18% / 32% / 50%). Replace with your own Endomorph numbers if you have them.";
+} else if(category === "bulk"){
+// Weight gain: Protein 1.6 g/kg | Fat 30% (Mesomorph) or up to 35% (Ectomorph) | Carbs = rest of calories
+const fatPct = bodyType === "ecto" ? 0.35 : 0.30;
+proteinG = Math.round(weightKg * 1.6);
+fatG = Math.round(targetCalories * fatPct / 9);
+carbG = Math.round(Math.max(targetCalories - proteinG * 4 - fatG * 9, 0) / 4);
+ruleText = (bodyType === "ecto" ? "Ectomorph" : "Mesomorph") + " weight-gain rule: protein 1.6 g/kg, fat " + (bodyType === "ecto" ? "up to 35%" : "30%") + " of calories, carbs = the rest of the calories. Best for people who train more than 3 times per week.";
+} else if(isKeto){
+// Ketogenic: Fat 90% | Protein 7% | Carbs 3%
+fatG = Math.round(targetCalories * 0.90 / 9);
+proteinG = Math.round(targetCalories * 0.07 / 4);
+carbG = Math.round(targetCalories * 0.03 / 4);
+ruleText = "Ketogenic rule: fat 90%, protein 7%, carbs 3% of total energy intake.";
+notes.push("A 90% fat ketogenic diet is very restrictive. Get your doctor's approval first, especially if you have diabetes, kidney, liver, or heart conditions or take medication.");
+} else {
+// Balanced diet: Protein 15-20% | Fat 30-35% | Carbs 46-55% (total = 100% of energy intake)
+proteinG = Math.round(targetCalories * 0.18 / 4);
+fatG = Math.round(targetCalories * 0.32 / 9);
+carbG = Math.round(targetCalories * 0.50 / 4);
+ruleText = "Balanced diet rule (100% of total energy intake): protein 15-20%, fat 30-35%, carbs 46-55%. Your plan uses 18% / 32% / 50%.";
+if(category === "keto"){
+notes.push("The ketogenic diet is not applied under 18. Your macros use the balanced diet rule instead.");
+}
+}
+
+const pct = (g, kcalPerG) => Math.round(g * kcalPerG / targetCalories * 100) + "% of calories";
+
+const lib = PLAN_LIBRARY[category][ageBracket];
+
+document.getElementById("ppTitle").textContent = lib.title;
+const bracketLabel = ageBracket === "teen" ? "teen (under 18)" : ageBracket === "senior" ? "senior (65+)" : "adult";
+document.getElementById("ppSubtitle").textContent =
+CATEGORY_LABEL[category] + " plan for a " + bracketLabel + " profile. BMI " + bmi.toFixed(1) + ". Calories use the Mifflin-St Jeor formula; macros follow the Healthy+ nutrition rules.";
+
+const warnBox = document.getElementById("ppWarning");
+warnBox.innerHTML = "";
+notes.forEach(text => {
+const p = document.createElement("p");
+p.textContent = text;
+warnBox.appendChild(p);
+});
+warnBox.classList.toggle("show", notes.length > 0);
+
+document.getElementById("bmiValue").textContent = bmi.toFixed(1);
+document.getElementById("calValue").textContent = Math.round(targetCalories) + " kcal";
+document.getElementById("proteinValue").innerHTML = proteinG + " g<small>" + pct(proteinG, 4) + "</small>";
+document.getElementById("carbValue").innerHTML = carbG + " g<small>" + pct(carbG, 4) + "</small>";
+document.getElementById("fatValue").innerHTML = fatG + " g<small>" + pct(fatG, 9) + "</small>";
+document.getElementById("ruleNote").textContent = ruleText;
+
+// DEJ (Dépense Énergétique Journalière) = daily energy expenditure
+const dej = Math.round(tdee);
+const diff = Math.round(targetCalories - tdee);
+let dejText;
+if(category === "bulk"){
+dejText = "Prise de poids: DEJ + [200 à 500 kcal]. Your DEJ is " + dej + " kcal, so the range is " + (dej + 200) + " to " + (dej + 500) + " kcal. Your plan: DEJ +" + diff + " kcal.";
+} else if(category === "cut" && diff < 0){
+dejText = "Perte de poids: DEJ - [200 à 500 kcal]. Your DEJ is " + dej + " kcal, so the range is " + (dej - 500) + " to " + (dej - 200) + " kcal. Your plan: DEJ " + diff + " kcal.";
+} else if(category === "cut"){
+dejText = "Perte de poids: DEJ - [200 à 500 kcal]. A deficit is not applied to your profile (see the warning above), so your calories stay at maintenance: DEJ = " + dej + " kcal.";
+} else {
+dejText = "Maintien du poids: calories = DEJ = " + dej + " kcal.";
+}
+document.getElementById("dejNote").textContent = dejText;
+
+const dietList = document.getElementById("ppDiet");
+const workoutList = document.getElementById("ppWorkout");
+dietList.innerHTML = "";
+workoutList.innerHTML = "";
+lib.diet.forEach(item => { const li = document.createElement("li"); li.textContent = item; dietList.appendChild(li); });
+lib.workout.forEach(item => { const li = document.createElement("li"); li.textContent = item; workoutList.appendChild(li); });
+
+const dietSrc = (category === "bulk" && bodyType === "endo")
+? "Endomorph profile: macros follow the balanced diet rule (protein 15-20%, fat 30-35%, carbs 46-55% of total energy intake). The calorie surplus is a modest estimate."
+: lib.dietSource;
+document.getElementById("ppDietSource").textContent = "Source: " + dietSrc;
+document.getElementById("ppWorkoutSource").textContent = "Source: " + lib.workoutSource;
+
+const pp = document.getElementById("personalPlan");
+pp.classList.remove("show");
+void pp.offsetWidth;
+pp.classList.add("show");
+}
+</script>
+</body>
+</html>
